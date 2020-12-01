@@ -1,0 +1,5 @@
+node_modules
+.htaccess
+wp-content/uploads
+wp-config.php
+yarn-error.log
