@@ -16,7 +16,7 @@ const paths = {
 };
 
 function cleanDirs() {
-	return src("assets").pipe(clean());
+	return src("assets").pipe(clean({ allowEmpty: true }));
 }
 
 function compileSass() {

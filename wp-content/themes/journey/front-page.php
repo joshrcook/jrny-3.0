@@ -1,5 +1,4 @@
-<?= get_header(); ?>
+<?php
 
-<?= get_template_part('template_parts/loop'); ?>
-
-<?= get_footer(); ?>
+$context = Timber::context();
+Timber::render('front-page.twig', $context);

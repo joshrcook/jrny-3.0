@@ -1,5 +1,5 @@
-<?= get_template_part('template_parts/head'); ?>
+<?= get_template_part('template-parts/head'); ?>
 
     <header>
-        <?= get_template_part('template_parts/navbar'); ?>
+        <?= get_template_part('template-parts/navbar'); ?>
     </header>

@@ -1,0 +1,13 @@
+.btn-primary {
+  --tw-bg-opacity: 1;
+  background-color: rgba(246, 75, 75, var(--tw-bg-opacity));
+  --tw-border-opacity: 1;
+  border-color: rgba(246, 75, 75, var(--tw-border-opacity));
+}
+
+.btn-primary:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgba(246, 75, 75, var(--tw-bg-opacity));
+  --tw-border-opacity: 1;
+  border-color: rgba(246, 75, 75, var(--tw-border-opacity));
+}
