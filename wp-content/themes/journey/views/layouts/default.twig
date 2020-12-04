@@ -9,6 +9,8 @@
         <meta name="description" content="description here">
         <meta name="keywords" content="keywords,here">
         <link rel="shortcut icon" href="favicon.ico" type="image/vnd.microsoft.icon">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
         {{ function('wp_head') }}
     </head>
     <body {{ function('body_class') }}>
@@ -20,7 +22,11 @@
 
         <main>
         {% block main %}
-            this is the default main content
+            {% if posts %}
+                {% for post in posts %}
+                    {{ post.content }}
+                {% endfor %}
+            {% endif %}
         {% endblock %}
         </main>
 

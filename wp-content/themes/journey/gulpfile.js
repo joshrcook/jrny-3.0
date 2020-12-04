@@ -3,6 +3,7 @@ const clean = require("gulp-clean");
 const sass = require("gulp-sass");
 const rename = require("gulp-rename");
 const postcss = require("gulp-postcss");
+const del = require('del');
 
 const paths = {
 	sass: {
@@ -10,13 +11,18 @@ const paths = {
 		dest: "assets/css",
 	},
 	postcss: {
-		src: "src/postcss/*.postcss",
+		src: {
+			static: ["src/postcss/tailwind.postcss"],
+			watch: ['src/postcss/styles.postcss'],
+		},
 		dest: "assets/css",
 	},
 };
 
 function cleanDirs() {
-	return src("assets").pipe(clean({ allowEmpty: true }));
+	return del([
+		'assets/**/*'
+	]);
 }
 
 function compileSass() {
@@ -34,8 +40,8 @@ function watchSass() {
 	return watch(paths.sass.src, compileSass);
 }
 
-function compilePostcss() {
-	return src(paths.postcss.src)
+const compilePostcss = (srcPath = [...paths.postcss.src.static, ...paths.postcss.src.watch]) => () => {
+	return src(srcPath)
 		.pipe(postcss())
 		.pipe(
 			rename({
@@ -46,8 +52,8 @@ function compilePostcss() {
 }
 
 function watchPostcss() {
-	return watch(paths.postcss.src, compilePostcss);
+	return watch(paths.postcss.src.watch, compilePostcss(paths.postcss.src.watch));
 }
 
 exports.watch = parallel(watchSass, watchPostcss);
-exports.default = series(cleanDirs, parallel(compileSass, compilePostcss));
+exports.default = series(cleanDirs, parallel(compileSass, compilePostcss()));

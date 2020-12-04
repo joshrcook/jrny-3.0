@@ -1,0 +1,17 @@
+<div class="jrny-card jrny-card--featured" style="background-image: url({{ fields.background_image.url }})">
+    <div class="jrny-card__content-wrapper">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="jrny-card__title-wrapper">
+                    <div class="jrny-card__subtitle h6">{{ fields.subtitle | default('Featured') }}</div>
+                    <div class="jrny-card__title h2">{{ fields.title }}</div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="jrny-card__cta-wrapper">
+                    <a class="btn btn-light" href="{{ fields.call_to_action.url }}" target="{{ fields.call_to_action.target }}">{{ fields.call_to_action.title }}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

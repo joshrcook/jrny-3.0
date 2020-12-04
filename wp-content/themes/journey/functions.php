@@ -16,6 +16,18 @@ function get_nav_menu_items_by_location($location) {
 
 }
 
+
+function jrny_timber_context( $context ) {
+    $context['menus'] = [
+        'main' => new \Timber\Menu('main'),
+    ];
+
+    return $context;
+}
+
+add_filter('timber/context', 'jrny_timber_context');
+
+
 /**
  * Register support for Gutenberg wide images in your theme
  */
@@ -23,6 +35,10 @@ function jrny_site_setup() {
     add_theme_support( 'align-wide' );
     add_theme_support( 'post-thumbnails' );
     add_theme_support( 'custom-logo' );
+    add_image_size( 'featured-card', 1110, 500);
+    add_image_size( 'featured-card-2x', 2220, 1000);
+    add_image_size( 'card', 500, 500);
+    add_image_size( 'card-2x', 1000, 1000);
 }
 
 add_action( 'after_setup_theme', 'jrny_site_setup' );
@@ -47,6 +63,15 @@ function add_theme_scripts_styles() {
 }
 
 add_action('wp_enqueue_scripts', 'add_theme_scripts_styles');
+
+function jrny_enqueue_block_editor_assets() {
+    wp_enqueue_style('bootstrap', get_template_directory_uri() . '/assets/css/bootstrap-4.5.3-custom.css');
+    wp_enqueue_style('tailwind', get_template_directory_uri() . '/assets/css/tailwind.css');
+    wp_enqueue_style('styles', get_template_directory_uri() . '/assets/css/styles.css'); 
+
+}
+
+add_action('enqueue_block_editor_assets', 'jrny_enqueue_block_editor_assets');
 
 
 function jrny_register_nav_menus() {
@@ -116,20 +141,35 @@ function my_acf_init_block_types() {
     // Check function exists.
     if( function_exists('acf_register_block_type') ) {
         
-        // register a testimonial block.
-        acf_register_block_type(array(
-            'name'              => 'testimonial',
-            'title'             => __('Testimonial'),
-            'description'       => __('A custom testimonial block.'),
-            'render_template'   => 'template-parts/blocks/testimonial.php',
-            'category'          => 'formatting',
-            'icon'              => 'admin-comments',
-            'keywords'          => array( 'testimonial', 'quote' ),
-        ));
+            // register a testimonial block.
+            acf_register_block_type(array(
+                'name'              => 'featured-card',
+                'title'             => 'Featured Card',
+                'description'       => 'A custom featured card block.',
+                'render_callback'   => 'timber_render_custom_acf_blocks',
+                'category'          => 'formatting',
+                'icon'              => 'admin-comments',
+            ));
+
     }
 }
 
 add_action('acf/init', 'my_acf_init_block_types');
+
+function timber_render_custom_acf_blocks( $block, $content = '', $is_preview = false ) {
+    $context = Timber::context();
+
+    $context['block'] = $block;
+
+    $context['fields'] = get_fields();
+
+    $context['is_preview'] = $is_preview;
+    
+    $name = explode('acf/', $block['name'])[1];
+    
+    Timber::render('blocks/' . $name . '.twig', $context);
+}
+
 
 /**
  * Register sermons custom post type

@@ -1,3 +1,21 @@
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html, body {
+  font-family: Inter, sans-serif;
+}
+
+.btn {
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  font-weight: 700;
+  border-radius: 0.5rem;
+}
+
 .btn-primary {
   --tw-bg-opacity: 1;
   background-color: rgba(246, 75, 75, var(--tw-bg-opacity));
@@ -6,8 +24,84 @@
 }
 
 .btn-primary:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgba(246, 75, 75, var(--tw-bg-opacity));
-  --tw-border-opacity: 1;
-  border-color: rgba(246, 75, 75, var(--tw-border-opacity));
+    --tw-bg-opacity: 1;
+    background-color: rgba(246, 75, 75, var(--tw-bg-opacity));
+    --tw-border-opacity: 1;
+    border-color: rgba(246, 75, 75, var(--tw-border-opacity));
+  }
+
+.h1, .h2, .h3, .h4, .h5, .h6 {
+  font-weight: 800;
+}
+
+.h1, .h2, .h3, .h4, .h5, .h6 {
+  margin: 0px;
+}
+
+.h1 {
+  font-size: 3rem;
+  line-height: 1;
+}
+
+.h2 {
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+  line-height: 1.25;
+}
+
+.h6 {
+  font-size: 0.75rem;
+  line-height: 1rem;
+  text-transform: uppercase;
+  line-height: 1rem;
+  font-weight: 700;
+}
+
+.jrny-card {
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  border-radius: 0.75rem;
+}
+
+.jrny-card__content-wrapper {
+    width: 100%;
+    padding: 2.5rem;
+    background-image: linear-gradient(
+            to bottom,
+            rgba(34, 34, 34, 0),
+            rgba(34, 34, 34, 0.7)
+        );
+    background-size: cover;
+  }
+
+.jrny-card__title-wrapper {
+    --tw-text-opacity: 1;
+    color: rgba(255, 255, 255, var(--tw-text-opacity));
+  }
+
+.jrny-card__subtitle {
+  }
+
+.jrny-card__title {
+    margin-top: 0.5rem;
+  }
+
+.jrny-card__cta-wrapper {
+    height: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+
+@media (min-width: 768px) {
+    .jrny-card__cta-wrapper {
+      justify-content: flex-end;
+      align-items: flex-end;
+    }
+  }
+
+.jrny-card--featured {
+  min-height: 500px;
+  background-size: cover;
 }
