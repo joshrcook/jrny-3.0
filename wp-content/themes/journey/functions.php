@@ -22,6 +22,14 @@ function jrny_timber_context( $context ) {
         'main' => new \Timber\Menu('main'),
     ];
 
+    if (function_exists('get_fields')) {
+        $context['options'] = get_fields('option');
+    }
+
+    $context['widgets'] = [
+        'footer_menus' =>  Timber::get_widgets('footer_menus'),
+    ];
+
     return $context;
 }
 
@@ -35,6 +43,7 @@ function jrny_site_setup() {
     add_theme_support( 'align-wide' );
     add_theme_support( 'post-thumbnails' );
     add_theme_support( 'custom-logo' );
+    add_theme_support( 'editor-styles' );
     add_image_size( 'featured-card', 1110, 500);
     add_image_size( 'featured-card-2x', 2220, 1000);
     add_image_size( 'card', 500, 500);
@@ -42,6 +51,21 @@ function jrny_site_setup() {
 }
 
 add_action( 'after_setup_theme', 'jrny_site_setup' );
+
+
+/**
+ * Add editor styles
+ */
+function jrny_add_editor_styles() {
+    add_editor_style('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+    add_editor_style( get_template_directory_uri() . '/assets/css/bootstrap-4.5.3-custom.css');
+    add_editor_style( get_template_directory_uri() . '/assets/css/tailwind.css');
+    add_editor_style( get_template_directory_uri() . '/assets/css/styles.css'); 
+    add_editor_style(get_template_directory_uri() . '/assets/css/editor-styles.css');
+}
+
+add_action('admin_init', 'jrny_add_editor_styles');
+
 
 
 /**
@@ -63,15 +87,6 @@ function add_theme_scripts_styles() {
 }
 
 add_action('wp_enqueue_scripts', 'add_theme_scripts_styles');
-
-function jrny_enqueue_block_editor_assets() {
-    wp_enqueue_style('bootstrap', get_template_directory_uri() . '/assets/css/bootstrap-4.5.3-custom.css');
-    wp_enqueue_style('tailwind', get_template_directory_uri() . '/assets/css/tailwind.css');
-    wp_enqueue_style('styles', get_template_directory_uri() . '/assets/css/styles.css'); 
-
-}
-
-add_action('enqueue_block_editor_assets', 'jrny_enqueue_block_editor_assets');
 
 
 function jrny_register_nav_menus() {
@@ -101,39 +116,19 @@ function acf_register_options_page() {
             'menu_slug' => 'theme-options',
         ]);
     }
-}
 
-add_action( 'init', 'acf_register_options_page' );
-
-
-function acf_register_local_field_groups() {
-    if ( function_exists('acf_add_local_field_group') ) {
-
-        acf_add_local_field_group([
-            'key' => 'jrny_theme_options',
-            'title' => 'Theme Options',
-            'fields' => [
-                [
-                    'key' => 'google_maps_api_key',
-                    'label' => 'Google Maps API Key',
-                    'name' => 'google_maps_api_key',
-                    'type' => 'text',
-                ]
-            ],
-            'location' => [
-                [
-                    [
-                        'param' => 'options_page',
-                        'operator' => '==',
-                        'value' => 'theme-options'
-                    ]
-                ]
-            ]
-        ]);
+    if( function_exists('acf_add_options_page') ) {
+    
+        acf_add_options_sub_page(array(
+            'page_title'     => 'Sermons Archive Options',
+            'menu_title'    => 'Sermons Archive Options',
+            'parent_slug'    => 'edit.php?post_type=jrny_sermon',
+        ));
+    
     }
 }
 
-add_action( 'init', 'acf_register_local_field_groups' );
+add_action( 'init', 'acf_register_options_page' );
 
 
 function my_acf_init_block_types() {
@@ -141,15 +136,84 @@ function my_acf_init_block_types() {
     // Check function exists.
     if( function_exists('acf_register_block_type') ) {
         
-            // register a testimonial block.
+            // Register the featured card block
             acf_register_block_type(array(
-                'name'              => 'featured-card',
-                'title'             => 'Featured Card',
-                'description'       => 'A custom featured card block.',
+                'name'              => 'featured-card-group',
+                'title'             => 'Featured Card Group',
+                'description'       => 'A custom editor block that displays featured cards',
                 'render_callback'   => 'timber_render_custom_acf_blocks',
                 'category'          => 'formatting',
                 'icon'              => 'admin-comments',
+                'supports'          => [
+                    'align' => false,
+                    'jsx' => true,
+                ],
+                'allowedBlocks' => esc_attr(wp_json_encode(['acf/featured-card'])),
             ));
+
+            acf_register_block_type([
+                'name' => 'featured-card',
+                'title' => 'Featured Card',
+                'description' => '',
+                'render_callback' => 'timber_render_custom_acf_blocks',
+                'category' => 'formatting',
+                'icon' => 'admin-comments',
+                'supports' => [
+                    'align' => false,
+                ],
+            ]);
+
+            acf_register_block_type([
+                'name' => 'standard-card-group',
+                'title' => 'Standard Card Group',
+                'description' => 'A group of cards',
+                'render_callback' => 'timber_render_custom_acf_blocks',
+                'category' => 'formatting',
+                'icon' => 'admin-comments',
+                'supports' => [
+                    'align' => false,
+                    'jsx' => true,
+                ],
+                'allowedBlocks' => esc_attr(wp_json_encode(['acf/standard-card'])),
+            ]);
+
+            acf_register_block_type([
+                'name' => 'section',
+                'title' => 'Section',
+                'description' => '',
+                'render_callback' => 'timber_render_custom_acf_blocks',
+                'category' => 'formatting',
+                'icon' => 'admin-comments',
+                'supports' => [
+                    'align' => false,
+                    'jsx' => true,
+                ],
+            ]);
+
+            acf_register_block_type(array(
+                'name'              => 'menu-group',
+                'title'             => 'Menu Group',
+                'description'       => 'A custom menu list block.',
+                'render_callback'   => 'timber_render_custom_acf_blocks',
+                'category'          => 'formatting',
+                'icon'              => 'admin-comments',
+                'supports'          => [
+                    'align' => false,
+                ],
+            ));
+
+            // Register the columns block
+            // acf_register_block_type(array(
+            //     'name'              => 'featured-card',
+            //     'title'             => 'Featured Card',
+            //     'description'       => 'A custom featured card block.',
+            //     'render_callback'   => 'timber_render_custom_acf_blocks',
+            //     'category'          => 'formatting',
+            //     'icon'              => 'admin-comments',
+            //     'supports'          => [
+            //         'align' => false,
+            //     ],
+            // ));
 
     }
 }
@@ -169,6 +233,40 @@ function timber_render_custom_acf_blocks( $block, $content = '', $is_preview = f
     
     Timber::render('blocks/' . $name . '.twig', $context);
 }
+
+
+/**
+ * Register our sidebars and widgetized areas.
+ *
+ */
+function arphabet_widgets_init() {
+
+	register_sidebar( array(
+		'name'          => 'Footer Menus',
+		'id'            => 'footer_menus',
+	) );
+
+}
+add_action( 'widgets_init', 'arphabet_widgets_init' );
+
+
+function wporg_block_wrapper($block_content, $block) {
+    if ($block['blockName'] == 'core/columns') {
+        $block_content = '<div>' . $block_content . '</div>';
+    }
+    return $block_content;
+}
+
+add_filter( 'render_block', 'wporg_block_wrapper', 10, 2 );
+
+function jrny_allowed_block_types( $allowed_block_types, $post ) {
+    if ( $post->post_type !== 'post' ) {
+        return $allowed_block_types;
+    }
+    return array( 'core/paragraph' );
+}
+ 
+add_filter( 'allowed_block_types', 'jrny_allowed_block_types', 10, 2 );
 
 
 /**

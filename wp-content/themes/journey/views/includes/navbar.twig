@@ -1,7 +1,9 @@
-
-<nav class="navbar navbar-expand-lg justify-between py-6 px-8">
+<nav class="navbar navbar-expand-lg justify-between py-6 px-8 navbar-light">
     <div class="navbar-brand">
-        {{ function('the_custom_logo') }}
+        <a href="{{ function('home_url') }}">
+            <img src="{{ options.logo_dark.url }}" class="jrny-logo jrny-logo--dark">
+            <img src="{{ options.logo_light.url }}" class="jrny-logo jrny-logo--light">
+        </a>
     </div>
     <ul class="navbar-nav text-sm font-bold flex items-center gap-5">
         {% if menus['main'] %}

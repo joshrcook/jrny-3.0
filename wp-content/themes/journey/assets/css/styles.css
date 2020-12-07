@@ -1,10 +1,11 @@
 * {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-family: Inter, sans-serif;
 }
 
-html, body {
-  font-family: Inter, sans-serif;
+p {
+  opacity: 0.7;
 }
 
 .btn {
@@ -14,6 +15,15 @@ html, body {
   padding-right: 1.5rem;
   font-weight: 700;
   border-radius: 0.5rem;
+}
+
+.btn-sm {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
 }
 
 .btn-primary {
@@ -30,12 +40,13 @@ html, body {
     border-color: rgba(246, 75, 75, var(--tw-border-opacity));
   }
 
-.h1, .h2, .h3, .h4, .h5, .h6 {
-  font-weight: 800;
+.btn-light {
+  --tw-text-opacity: 1;
+  color: rgba(22, 28, 45, var(--tw-text-opacity));
 }
 
 .h1, .h2, .h3, .h4, .h5, .h6 {
-  margin: 0px;
+  font-weight: 800;
 }
 
 .h1 {
@@ -57,51 +68,132 @@ html, body {
   font-weight: 700;
 }
 
+.jrny-sermon-group + .jrny-sermon-group {
+  margin-top: 5rem;
+}
+
+.jrny-footer-menus {
+  margin-bottom: -2.5rem;
+  gap: 1rem;
+}
+
+.jrny-footer-menus .widget {
+    margin-bottom: 2.5rem;
+  }
+
+.jrny-footer-menus .widgettitle {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    font-weight: 700;
+    opacity: 0.7;
+    margin-bottom: 1.5rem;
+  }
+
+.jrny-footer-menus .menu {
+    font-weight: 700;
+  }
+
+.jrny-footer-menus .menu .menu-item {
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+    }
+
+.jrny-logo--light {
+  display: none;
+}
+
+.navbar-dark .jrny-logo--dark {
+    display: none;
+  }
+
+.navbar-dark .jrny-logo--light {
+    display: inline-block;
+  }
+
+.jrny-menu-group__menu {
+  margin-top: 1.5rem;
+}
+
+.jrny-menu-group__menu:first-child {
+    margin-top: 0px;
+  }
+
+.jrny-featured-card-group__card {
+    margin-top: 1.875rem;
+  }
+
+.jrny-featured-card-group__card:first-child {
+      margin-top: 0px;
+    }
+
+.jrny-standard-card-group__card {
+    margin-top: 1.875rem;
+  }
+
+@media (min-width: 768px) {
+      .jrny-standard-card-group__card:nth-child(1), .jrny-standard-card-group__card:nth-child(2) {
+        margin-top: 0px;
+      }
+    }
+
 .jrny-card {
-  display: flex;
-  align-items: flex-end;
-  overflow: hidden;
-  border-radius: 0.75rem;
+  position: relative;
+  padding-bottom: 100%;
 }
 
 .jrny-card__content-wrapper {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
     width: 100%;
-    padding: 2.5rem;
     background-image: linear-gradient(
             to bottom,
             rgba(34, 34, 34, 0),
             rgba(34, 34, 34, 0.7)
         );
-    background-size: cover;
-  }
-
-.jrny-card__title-wrapper {
-    --tw-text-opacity: 1;
-    color: rgba(255, 255, 255, var(--tw-text-opacity));
-  }
-
-.jrny-card__subtitle {
-  }
-
-.jrny-card__title {
-    margin-top: 0.5rem;
-  }
-
-.jrny-card__cta-wrapper {
-    height: 100%;
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
-  }
-
-@media (min-width: 768px) {
-    .jrny-card__cta-wrapper {
-      justify-content: flex-end;
-      align-items: flex-end;
-    }
   }
 
 .jrny-card--featured {
-  min-height: 500px;
-  background-size: cover;
+  padding-bottom: 0px;
+  height: 500px;
+}
+
+.jrny-section {
+}
+
+.jrny-section--edit-mode {
+}
+
+.jrny-section--spacing-none {
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+
+.jrny-section--spacing-xs {
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
+}
+
+.jrny-section--spacing-sm {
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
+}
+
+.jrny-section--spacing-md {
+  padding-top: 3.75rem;
+  padding-bottom: 3.75rem;
+}
+
+.jrny-section--spacing-lg {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+.jrny-section--spacing-xl {
+  padding-top: 6.25rem;
+  padding-bottom: 6.25rem;
+}
+
+.jrny-section--bg-color-white + .jrny-section--bg-color-white, .jrny-section--bg-color-light + .jrny-section--bg-color-light, .jrny-section--bg-color-dark + .jrny-section--bg-color-dark {
+  padding-top: 0px;
 }

@@ -1,6 +1,6 @@
 @import "../vendor/bootstrap-4.5.3/scss/functions";
 @import "../vendor/bootstrap-4.5.3/scss/variables";
-@import 'user-variables';
+@import "user-variables";
 @import "../vendor/bootstrap-4.5.3/scss/mixins";
 @import "../vendor/bootstrap-4.5.3/scss/root";
 // Remove reboot - shouldn't be needed with the tailwind reboot
@@ -39,7 +39,8 @@
 // @import "../vendor/bootstrap-4.5.3/scss/utilities";
 @import "../vendor/bootstrap-4.5.3/scss/utilities/align";
 @import "../vendor/bootstrap-4.5.3/scss/utilities/background";
-@import "../vendor/bootstrap-4.5.3/scss/utilities/borders";
+// Removing borders because they interfere with tailwind
+// @import "../vendor/bootstrap-4.5.3/scss/utilities/borders";
 @import "../vendor/bootstrap-4.5.3/scss/utilities/clearfix";
 @import "../vendor/bootstrap-4.5.3/scss/utilities/display";
 @import "../vendor/bootstrap-4.5.3/scss/utilities/embed";

@@ -1,0 +1,27 @@
+<div id="{{ block.id }}" class="jrny-standard-card-group">
+    {% if fields.cards|length > 0 %}
+        <div class="row">
+        {% for card in fields.cards %}
+            <div class="col-md-6 jrny-standard-card-group__card">
+                <div
+                    class="bg-cover bg-center overflow-hidden rounded-xl flex items-end font-sans jrny-card jrny-card--standard" 
+                    style="background-image: url({% if card.background_image %}{{ card.background_image.url }}{% else %}https://via.placeholder.com/500x500{% endif %});">
+                    <div class="w-full px-5 pb-6 pt-9 jrny-card__content-wrapper">
+                        <div class="flex items-end gap-4">
+                            <div class="flex-grow text-white">
+                                <div class="h6 mb-0">{{ card.subtitle | default('Featured') }}</div>
+                                <div class="h4 mt-1 mb-0">{{ card.title | default('Card Title') }}</div>
+                            </div>
+                            <div class="flex-shrink">
+                                <a class="btn btn-light btn-sm whitespace-nowrap" href="{{ card.call_to_action.url }}" target="{{ card.call_to_action.target }}">{{ card.call_to_action.title | default('Call To Action') }}</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+    {% else %}
+        <div class="border border-gray-300 flex w-full p-4 justify-center items-center text-gray-600 text-sm" style="border-style: dashed !important;">Standard Card Group<div><em>(edit this card to get started)</em></div></div>
+    {% endif %}
+</div>

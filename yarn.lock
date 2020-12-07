@@ -7333,10 +7333,10 @@ nan@^2.12.1, nan@^2.13.2:
   resolved "https://registry.yarnpkg.com/nan/-/nan-2.14.2.tgz#f5376400695168f4cc694ac9393d0c9585eeea19"
   integrity sha512-M2ufzIiINKCuDfBSAUr1vWQ+vuVcA9kqx8JJUsbQi6yf1uGRyb7HfpdfUr5qLXf3B/t8dPvcjhKMmlfnP47EzQ==
 
-nanoid@^3.1.18:
-  version "3.1.19"
-  resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-3.1.19.tgz#baf8331efb722320f7ea4ef367f056e8d965172d"
-  integrity sha512-giCapaolEGFzITf00P2rSIjWoY3aWS3bb7AzjnfFJH4EOaAPLtyUrr3C5nQ//x4v1wTcU1JgtBpOKPOqqHrakg==
+nanoid@^3.1.20:
+  version "3.1.20"
+  resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-3.1.20.tgz#badc263c6b1dcf14b71efaa85f6ab4c1d6cfc788"
+  integrity sha512-a1cQNyczgKbLX9jwbS/+d7W8fX/RfgYR7lVWwWOGIPNgK2m0MWvrGF6/m4kk6U3QcFMnZf3RIhL0v2Jgh/0Uxw==
 
 nanomatch@^1.2.9:
   version "1.2.13"
@@ -8360,10 +8360,10 @@ postcss-media-query-parser@^0.2.3:
   resolved "https://registry.yarnpkg.com/postcss-media-query-parser/-/postcss-media-query-parser-0.2.3.tgz#27b39c6f4d94f81b1a73b8f76351c609e5cef244"
   integrity sha1-J7Ocb02U+Bsac7j3Y1HGCeXO8kQ=
 
-postcss-nested@^5.0.1:
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/postcss-nested/-/postcss-nested-5.0.1.tgz#e7a77f7a806a09c8de0f2c163d8e3d09f00f3139"
-  integrity sha512-ZHNSAoHrMtbEzjq+Qs4R0gHijpXc6F1YUv4TGmGaz7rtfMvVJBbu5hMOH+CrhEaljQpEmx5N/P8i1pXTkbVAmg==
+postcss-nested@^5.0.1, postcss-nested@^5.0.2:
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/postcss-nested/-/postcss-nested-5.0.2.tgz#0a5b3865c86435bf0e0bf26d05ac53ba5b9597b9"
+  integrity sha512-ddUGffzocy13jyKzl172kd7IY3puSbGLYDh2UgryYoQWHcpHkOecR6lDnIMgnu+TRVOPajIBqIX9si8a2oRfNg==
   dependencies:
     postcss-selector-parser "^6.0.4"
 
@@ -8477,15 +8477,14 @@ postcss@^7.0.0, postcss@^7.0.1, postcss@^7.0.13, postcss@^7.0.14, postcss@^7.0.2
     source-map "^0.6.1"
     supports-color "^6.1.0"
 
-postcss@^8.1.10, postcss@^8.1.6:
-  version "8.1.10"
-  resolved "https://registry.yarnpkg.com/postcss/-/postcss-8.1.10.tgz#129834f94c720554d2cfdaeb27d5542ac4a026ea"
-  integrity sha512-iBXEV5VTTYaRRdxiFYzTtuv2lGMQBExqkZKSzkJe+Fl6rvQrA/49UVGKqB+LG54hpW/TtDBMGds8j33GFNW7pg==
+postcss@^8.1.14, postcss@^8.1.6:
+  version "8.1.14"
+  resolved "https://registry.yarnpkg.com/postcss/-/postcss-8.1.14.tgz#77d6a5db2fdc0afa918e24af5323a53fb8727f2e"
+  integrity sha512-KatkyVPBKfENS+c3dpXJoDXnDD5UZs5exAnDksLqaRJPKwYphEPZt4N0m0i049v2/BtWVQibAhxW4ilXXcolpA==
   dependencies:
     colorette "^1.2.1"
-    nanoid "^3.1.18"
+    nanoid "^3.1.20"
     source-map "^0.6.1"
-    vfile-location "^3.2.0"
 
 prelude-ls@~1.1.2:
   version "1.1.2"
@@ -10888,11 +10887,6 @@ vfile-location@^2.0.0:
   version "2.0.6"
   resolved "https://registry.yarnpkg.com/vfile-location/-/vfile-location-2.0.6.tgz#8a274f39411b8719ea5728802e10d9e0dff1519e"
   integrity sha512-sSFdyCP3G6Ka0CEmN83A2YCMKIieHx0EDaj5IDP4g1pa5ZJ4FJDvpO0WODLxo4LUX4oe52gmSCK7Jw4SBghqxA==
-
-vfile-location@^3.2.0:
-  version "3.2.0"
-  resolved "https://registry.yarnpkg.com/vfile-location/-/vfile-location-3.2.0.tgz#d8e41fbcbd406063669ebf6c33d56ae8721d0f3c"
-  integrity sha512-aLEIZKv/oxuCDZ8lkJGhuhztf/BW4M+iHdCwglA/eWc+vtuRFJj8EtgceYFX4LRjOhCAAiNHsKGssC6onJ+jbA==
 
 vfile-message@*:
   version "2.0.4"

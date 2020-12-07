@@ -1,16 +1,14 @@
-<div class="jrny-card jrny-card--featured" style="background-image: url({{ fields.background_image.url }})">
-    <div class="jrny-card__content-wrapper">
+<div
+    class="bg-cover bg-center overflow-hidden rounded-xl flex items-end font-sans jrny-card jrny-card--featured" 
+    style="background-image: url({% if fields.background_image %}{{ fields.background_image.url }}{% else %}https://via.placeholder.com/1110x500{% endif %}); height: 500px;">
+    <div class="w-full p-10 jrny-card__content-wrapper">
         <div class="row">
-            <div class="col-md-6">
-                <div class="jrny-card__title-wrapper">
-                    <div class="jrny-card__subtitle h6">{{ fields.subtitle | default('Featured') }}</div>
-                    <div class="jrny-card__title h2">{{ fields.title }}</div>
-                </div>
+            <div class="col-md-6 text-white">
+                <div class="h6">{{ fields.subtitle | default('Featured') }}</div>
+                <div class="h2 mt-2 mb-0">{{ fields.title | default('Card Title') }}</div>
             </div>
-            <div class="col-md-6">
-                <div class="jrny-card__cta-wrapper">
-                    <a class="btn btn-light" href="{{ fields.call_to_action.url }}" target="{{ fields.call_to_action.target }}">{{ fields.call_to_action.title }}</a>
-                </div>
+            <div class="col-md-6 flex justify-end items-end">
+                <a class="btn btn-light" href="{{ fields.call_to_action.url }}" target="{{ fields.call_to_action.target }}">{{ fields.call_to_action.title | default('Call To Action') }}</a>
             </div>
         </div>
     </div>

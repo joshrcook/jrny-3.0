@@ -1,11 +1,11 @@
 * {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    @apply font-sans;
 }
 
-html,
-body {
-    @apply font-sans;
+p {
+    @apply opacity-70;
 }
 
 .btn {
@@ -13,6 +13,11 @@ body {
     @apply px-6;
     @apply font-bold;
     @apply rounded-lg;
+}
+
+.btn-sm {
+    @apply py-2 px-4;
+    @apply text-sm;
 }
 
 .btn-primary {
@@ -25,6 +30,10 @@ body {
     }
 }
 
+.btn-light {
+    @apply text-black;
+}
+
 .h1,
 .h2,
 .h3,
@@ -32,7 +41,6 @@ body {
 .h5,
 .h6 {
     @apply font-extrabold;
-    @apply m-0;
 }
 
 .h1 {
@@ -51,49 +59,133 @@ body {
     @apply font-bold;
 }
 
+.jrny-sermon-group + .jrny-sermon-group {
+    @apply mt-20;
+}
+
+.jrny-footer-menus {
+    @apply -mb-10;
+    @apply gap-4;
+
+    .widget {
+        @apply mb-10;
+    }
+
+    .widgettitle {
+        @apply text-sm;
+        @apply font-bold;
+        @apply opacity-70;
+        @apply mb-6;
+    }
+
+    .menu {
+        @apply font-bold;
+
+        .menu-item {
+            @apply py-2;
+        }
+    }
+}
+
+.jrny-logo--light {
+    @apply hidden;
+}
+
+.navbar-dark {
+    .jrny-logo--dark {
+        @apply hidden;
+    }
+
+    .jrny-logo--light {
+        @apply inline-block;
+    }
+}
+
+.jrny-menu-group__menu {
+    @apply mt-6;
+
+    &:first-child {
+        @apply mt-0;
+    }
+}
+
+.jrny-featured-card-group {
+    &__card {
+        @apply mt-7.5;
+
+        &:first-child {
+            @apply mt-0;
+        }
+    }
+}
+
+.jrny-standard-card-group {
+    &__card {
+        @apply mt-7.5;
+
+        @screen md {
+            &:nth-child(1),
+            &:nth-child(2) {
+                @apply mt-0;
+            }
+        }
+    }
+}
+
 .jrny-card {
-    @apply flex;
-    @apply items-end;
-    @apply overflow-hidden;
-    @apply rounded-xl;
+    @apply relative;
+    padding-bottom: 100%;
 
     &__content-wrapper {
+        @apply absolute;
+        @apply bottom-0;
+        @apply left-0;
         @apply w-full;
-        @apply p-10;
         background-image: linear-gradient(
             to bottom,
             rgba(34, 34, 34, 0),
             rgba(34, 34, 34, 0.7)
         );
-        background-size: cover;
-    }
-
-    &__title-wrapper {
-        @apply text-white;
-    }
-    &__subtitle {
-    }
-
-    &__title {
-        @apply mt-2;
-    }
-
-    &__cta-wrapper {
-        @apply h-full;
-        @apply flex;
-        @apply justify-start;
-        @apply items-start;
-    }
-
-    @screen md {
-        &__cta-wrapper {
-            @apply justify-end;
-            @apply items-end;
-        }
     }
 }
 
 .jrny-card--featured {
-    min-height: 500px;
-    background-size: cover;
+    @apply pb-0;
+    height: 500px;
+}
+
+.jrny-section {
+}
+
+.jrny-section--edit-mode {
+}
+
+.jrny-section--spacing-none {
+    @apply py-0;
+}
+
+.jrny-section--spacing-xs {
+    @apply py-5;
+}
+
+.jrny-section--spacing-sm {
+    @apply py-10;
+}
+
+.jrny-section--spacing-md {
+    @apply py-15;
+}
+
+.jrny-section--spacing-lg {
+    @apply py-20;
+}
+
+.jrny-section--spacing-xl {
+    @apply py-25;
+}
+
+.jrny-section--bg-color-white + .jrny-section--bg-color-white,
+.jrny-section--bg-color-light + .jrny-section--bg-color-light,
+.jrny-section--bg-color-dark + .jrny-section--bg-color-dark {
+    @apply pt-0;
 }

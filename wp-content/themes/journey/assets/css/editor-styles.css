@@ -1,0 +1,39 @@
+* {
+  font-family: Inter, sans-serif;
+}
+
+.editor-post-title__input {
+  text-align: center;
+}
+
+.block-editor-block-list__block {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.block-editor-default-block-appender {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.block-editor-default-block-appender
+    textarea.block-editor-default-block-appender__content {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  height: 1.5rem !important;
+}
+
+.container {
+  padding: 0px;
+}
+
+.wp-block {
+  max-width: none;
+}
+
+.jrny-section {
+  border-width: 1px;
+  border-style: dashed;
+  --tw-border-opacity: 1;
+  border-color: rgba(209, 213, 219, var(--tw-border-opacity));
+}

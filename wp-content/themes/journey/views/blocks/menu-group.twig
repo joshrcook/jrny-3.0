@@ -1,0 +1,19 @@
+<div id="{{ block.id }}" class="jrny-menu-group">
+    {% if fields.menus | length > 0 %}
+        {% for menu in fields.menus %}
+            <div class="jrny-menu-group__menu jrny-menu rounded-xl bg-black text-white p-4">
+                <h5 class="h5">{{ menu.title }}</h5>
+                <p class="text-sm opacity-70">{{ menu.description }}</p>
+                <ul class="list-group list-group-flush mt-3">
+                    {% for item in menu.items %}
+                        <li class="list-group-item bg-transparent border-white border-opacity-30 p-0">
+                            <a href="{{ item.link.url }}" target="{{ item.link.target }}" class="font-extrabold px-5 py-3 block">{{ item.link.title }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="p-4 text-sm text-gray-600 border border-gray-600 border-solid">To get started, edit this block and add some menus.</div>
+    {% endif %}
+</div>
