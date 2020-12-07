@@ -59,8 +59,22 @@ p {
     @apply font-bold;
 }
 
+.lead {
+    @apply text-lg;
+}
+
 .jrny-sermon-group + .jrny-sermon-group {
     @apply mt-20;
+}
+
+.jrny-sermon-group {
+    .btn-group .btn {
+        @apply px-3 py-4;
+
+        &.slick-disabled {
+            @apply text-gray-300;
+        }
+    }
 }
 
 .jrny-footer-menus {
@@ -182,6 +196,10 @@ p {
 
 .jrny-section--spacing-xl {
     @apply py-25;
+}
+
+.jrny-section--bg-color-light {
+    @apply bg-gray-100;
 }
 
 .jrny-section--bg-color-white + .jrny-section--bg-color-white,

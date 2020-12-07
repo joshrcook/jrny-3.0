@@ -14,6 +14,10 @@ const paths = {
 		src: 'src/postcss/*.postcss',
 		dest: "assets/css",
 	},
+	js: {
+		src: 'src/js/*.js',
+		dest: 'assets/js',
+	}
 };
 
 function cleanDirs() {
@@ -52,5 +56,13 @@ function watchPostcss() {
 	return watch(paths.postcss.src, compilePostcss);
 }
 
-exports.watch = parallel(watchSass, watchPostcss);
-exports.default = series(cleanDirs, parallel(compileSass, compilePostcss));
+function compileJs() {
+	return src(paths.js.src, { since: lastRun(compilePostcss) }).pipe(dest(paths.js.dest));
+}
+
+function watchJs() {
+	return watch(paths.js.src, compileJs);
+}
+
+exports.watch = parallel(watchSass, watchPostcss, watchJs);
+exports.default = series(cleanDirs, parallel(compileSass, compilePostcss, compileJs));

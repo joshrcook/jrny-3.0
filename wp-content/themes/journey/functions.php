@@ -81,9 +81,13 @@ add_filter('upload_mimes', 'jrny_mime_types');
  * Theme CSS / JS
  */
 function add_theme_scripts_styles() {
+    wp_enqueue_style('slick', '//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css');
     wp_enqueue_style('bootstrap', get_template_directory_uri() . '/assets/css/bootstrap-4.5.3-custom.css');
     wp_enqueue_style('tailwind', get_template_directory_uri() . '/assets/css/tailwind.css');
     wp_enqueue_style('styles', get_template_directory_uri() . '/assets/css/styles.css'); 
+
+    wp_enqueue_script('slick', '//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js', ['jquery'], null, true);
+    wp_enqueue_script('index', get_template_directory_uri() . '/assets/js/index.js', ['jquery', 'slick'], null, true);
 }
 
 add_action('wp_enqueue_scripts', 'add_theme_scripts_styles');

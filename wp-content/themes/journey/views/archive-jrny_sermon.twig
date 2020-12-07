@@ -1,6 +1,7 @@
 {% extends 'layouts/default.twig' %}
 
 {% block main %}
+
 <section class="jrny-section jrny-section--spacing-lg">
     <div class="container">
         <div class="row justify-center mb-15">
@@ -16,6 +17,25 @@
         {% include 'includes/sermon-group.twig' with { title: 'Best Of' } %}
         {% include 'includes/sermon-group.twig' with { title: 'Latest Sermons' } %}
     <div>
+</section>
+
+<section class="jrny-section jrny-section--spacing-lg jrny-section--bg-color-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-6">
+                <h2 class="h2">Struggling with<br> something else?</h2>
+                <p class="lead mt-6">The Bible talks about a lot of topics, and so do we.  Here’s our sermons by category so you can find what you’re looking for.</p>
+            </div>
+        </div>
+        <div class="row mt-14">
+            <div class="col-sm-4">
+                <div class="bg-white border border-gray-200 py-6 px-7.5 rounded-lg hover:border-gray-300 hover:bg-gray-50 transition transform ease-in-out hover:shadow-md hover:-translate-y-1 duration-300">
+                    <h5 class="h5">Grace</h5>
+                    <p class="text-sm mt-1 font-medium">32 Sermons</p>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
 
 {% endblock %}
