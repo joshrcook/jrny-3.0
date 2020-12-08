@@ -89,6 +89,10 @@ p {
       color: rgba(209, 213, 219, var(--tw-text-opacity));
     }
 
+.jrny-sermon-group .slick-track {
+    margin-left: 0px;
+  }
+
 .jrny-footer-menus {
   margin-bottom: -2.5rem;
   gap: 1rem;

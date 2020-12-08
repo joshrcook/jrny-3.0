@@ -382,16 +382,16 @@ add_action( 'init', 'jrny_register_taxonomy_series' );
  */
 function jrny_register_taxonomy_topic() {
     $labels = array(
-        'name'              => 'Sermon Topics',
-        'singular_name'     => 'Sermon Topics',
-        'search_items'      => 'Search Sermon Topics',
-        'all_items'         => 'All Sermon Topics',
-        'parent_item'       => 'Parent Sermon Topics',
-        'parent_item_colon' => 'Parent Sermon Topics:',
-        'edit_item'         => 'Edit Sermon Topics',
-        'update_item'       => 'Update Sermon Topics',
-        'add_new_item'      => 'Add New Sermon Topics',
-        'new_item_name'     => 'New Sermon Topics Name',
+        'name'              => 'Sermon Categories',
+        'singular_name'     => 'Sermon Category',
+        'search_items'      => 'Search Sermon Categories',
+        'all_items'         => 'All Sermon Categories',
+        'parent_item'       => 'Parent Sermon Category',
+        'parent_item_colon' => 'Parent Sermon Category:',
+        'edit_item'         => 'Edit Sermon Category',
+        'update_item'       => 'Update Sermon Category',
+        'add_new_item'      => 'Add New Sermon Category',
+        'new_item_name'     => 'New Sermon Category Name',
     );
     $args   = array(
         'hierarchical'      => true, // make it hierarchical (like categories)
@@ -401,7 +401,7 @@ function jrny_register_taxonomy_topic() {
         'meta_box_cb'       => false,
         'public'            => false,
     );
-    register_taxonomy( 'jrny_topic', [ 'jrny_sermon' ], $args );
+    register_taxonomy( 'jrny_sermon_category', [ 'jrny_sermon' ], $args );
 }
 add_action( 'init', 'jrny_register_taxonomy_topic' );
 
@@ -447,3 +447,12 @@ function jrny_location_custom_post_type() {
 }
 
 add_action('init', 'jrny_location_custom_post_type');
+
+/**
+ * Filter Youtube embeds to remove extra info
+ */
+function jrny_filter_youtube_embed() {
+
+}
+
+add_filter('oembed_result', 'jrny_filter_youtube_embed');
