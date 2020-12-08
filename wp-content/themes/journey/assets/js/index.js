@@ -1,5 +1,7 @@
 jQuery(document).ready(function($) {
-    $('.jrny-sermon-group').each(function() {
+    var $sermonGroup = $('.jrny-sermon-group');
+    console.log('sermonGroup', $sermonGroup);
+    $sermonGroup.each(function() {
         const slickEl = $(this).find('.jrny-sermon-group__sermons');
         const nextButton = $(this).find('.jrny-sermon-group__btn--next');
         const prevButton = $(this).find('.jrny-sermon-group__btn--prev');

@@ -1,0 +1,46 @@
+{% extends 'layouts/default.twig' %}
+
+{% block main %}
+
+{% for post in posts %}
+
+    <section class="jrny-section bg-black pt-15">
+        <div class="container">
+            <div class="embed-responsive embed-responsive-16by9 rounded-xl overflow-hidden">
+                {{ function('wp_oembed_get', post.video) }}
+            </div>
+        </div>
+    </section>
+
+    <section class="jrny-section jrny-section--bg-color-white jrny-section--spacing-xl -mt-28 pt-40">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8">
+                    <h6 class="h6 text-black text-opacity-70 font-semibold">{{ Term(post.speaker).title | default('[Speaker]') }} &middot; {{ post.date }}</h6>
+                    <h1 class="h3 mt-2.5">{{ post.title }}</h1>
+                    {% if post.description %}<p class="mt-4">{{ post.description | nl2br }}</p>{% endif %}
+                    <a href="#" class="btn btn-primary mt-10">Subscribe to sermons</a>
+                </div>
+                {% if post.downloads %}
+                    <div class="col-sm-4">
+                        <h6 class="h6 text-black text-opacity-70 font-semibold">Downloads</h6>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+
+    {% if series_sermons %}
+        <div class="container">
+            <hr class="border-t border-gray-200">
+        </div>
+
+        <section class="jrny-section jrny-section--bg-color-white jrny-section--spacing-lg">
+            <div class="container">
+                {% include 'includes/sermon-group.twig' with { title: 'More from this series', sermons: series_sermons } %}
+            </div>
+        </section>
+    {% endif %}
+{% endfor %}
+
+{% endblock %}
