@@ -1,0 +1,18 @@
+{% extends 'layouts/default.twig' %}
+
+{% block main %}
+    <section class="jrny-section jrny-section--lg">
+        <div class="container">
+            <h2 class="text-center h1">{{ function('get_the_archive_title') }}</h2>
+            <div class="mt-20">
+                <div class="row">
+                    {% for sermon in posts %}
+                        <div class="col-sm-4">
+                            {% include 'includes/sermon-card.twig' with { sermon: sermon } %}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

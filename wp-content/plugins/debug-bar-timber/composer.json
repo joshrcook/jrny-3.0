@@ -1,0 +1,6 @@
+{
+    "repositories": [],
+    "require": {
+        "symfony/var-dumper": "^5.1"
+    }
+}

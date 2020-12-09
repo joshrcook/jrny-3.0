@@ -10,6 +10,7 @@ $context['sermon_groups'] = [];
 if (function_exists('get_field')) {
     $context['title'] = get_field('sermons_archive_title', 'option');
     $context['description'] = get_field('sermons_archive_description', 'option');
+    $context['topics_section'] = get_field('sermon_archive_topics_section', 'option');
     $sermon_groups = get_field('sermon_archive_groups', 'option');
     foreach($sermon_groups as $group) {
         $sermon_group = [

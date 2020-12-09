@@ -3,7 +3,6 @@
 {% block main %}
 
 {% for post in posts %}
-
     <section class="jrny-section bg-black pt-15">
         <div class="container">
             <div class="embed-responsive embed-responsive-16by9 rounded-xl overflow-hidden">
@@ -12,7 +11,7 @@
         </div>
     </section>
 
-    <section class="jrny-section jrny-section--bg-color-white jrny-section--spacing-xl -mt-28 pt-40">
+    <section class="jrny-section jrny-section--white jrny-section--xl -mt-28 pt-40">
         <div class="container">
             <div class="row">
                 <div class="col-sm-8">
@@ -35,7 +34,7 @@
             <hr class="border-t border-gray-200">
         </div>
 
-        <section class="jrny-section jrny-section--bg-color-white jrny-section--spacing-lg">
+        <section class="jrny-section jrny-section--white jrny-section--lg">
             <div class="container">
                 {% include 'includes/sermon-group.twig' with { title: 'More from this series', sermons: series_sermons } %}
             </div>

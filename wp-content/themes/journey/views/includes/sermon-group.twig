@@ -10,15 +10,7 @@
         <div class="mt-7.5 jrny-sermon-group__sermons -mx-4">
             {% for sermon in sermons %}
                 <div class="px-4">
-                    <a href="{{ sermon.link }}" class="outline-none block">
-                        <div class="jrny-sermon border border-gray-200 rounded-lg overflow-hidden">
-                            <img alt="{{ sermon.thumbnail.alt }}" src="{{ sermon.thumbnail.src | default('http://placehold.it/960x540') }}" class="w-full h-auto">
-                            <div class="p-4">
-                                <p class="text-sm font-medium">{{ Term(sermon.speaker).title | default('Speaker') }}</p>
-                                <h4 class="h5 mt-1 mb-0">{{ sermon.title }}</h4>
-                            </div>
-                        </div>
-                    </a>
+                    {% include 'includes/sermon-card.twig' with { sermon: sermon } %}
                 </div>
             {% endfor %}
         </div>

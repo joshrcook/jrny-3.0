@@ -399,7 +399,9 @@ function jrny_register_taxonomy_topic() {
         'show_ui'           => true,
         'show_admin_column' => true,
         'meta_box_cb'       => false,
-        'public'            => false,
+        'public'            => true,
+        'has_archive'       => true,
+        'rewrite'           => [ 'slug' => 'sermon-category' ],
     );
     register_taxonomy( 'jrny_sermon_category', [ 'jrny_sermon' ], $args );
 }
@@ -447,12 +449,3 @@ function jrny_location_custom_post_type() {
 }
 
 add_action('init', 'jrny_location_custom_post_type');
-
-/**
- * Filter Youtube embeds to remove extra info
- */
-function jrny_filter_youtube_embed() {
-
-}
-
-add_filter('oembed_result', 'jrny_filter_youtube_embed');

@@ -1,0 +1,9 @@
+<div class="jrny-sermon border border-gray-200 rounded-lg overflow-hidden">
+    <a href="{{ sermon.link }}" class="outline-none block">
+        <img alt="{{ sermon.thumbnail.alt }}" src="{{ sermon.thumbnail.src | default('http://placehold.it/960x540') }}" class="w-full h-auto">
+        <div class="p-4">
+            <p class="text-sm font-medium">{{ Term(sermon.speaker).title | default('Speaker') }}</p>
+            <h4 class="h5 mt-1 mb-0">{{ sermon.title }}</h4>
+        </div>
+    </a>
+</div>

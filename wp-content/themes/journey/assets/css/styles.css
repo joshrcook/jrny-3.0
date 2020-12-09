@@ -185,51 +185,50 @@ p {
 .jrny-section--edit-mode {
 }
 
-.jrny-section--spacing-none {
-  padding-top: 0px;
-  padding-bottom: 0px;
-}
+/* .jrny-section--none {
+    @apply py-0;
+} */
 
-.jrny-section--spacing-xs {
+.jrny-section--xs {
   padding-top: 1.25rem;
   padding-bottom: 1.25rem;
 }
 
-.jrny-section--spacing-sm {
+.jrny-section--sm {
   padding-top: 2.5rem;
   padding-bottom: 2.5rem;
 }
 
-.jrny-section--spacing-md {
+.jrny-section--md {
   padding-top: 3.75rem;
   padding-bottom: 3.75rem;
 }
 
-.jrny-section--spacing-lg {
+.jrny-section--lg {
   padding-top: 5rem;
   padding-bottom: 5rem;
 }
 
-.jrny-section--spacing-xl {
+.jrny-section--xl {
   padding-top: 6.25rem;
   padding-bottom: 6.25rem;
 }
 
-.jrny-section--bg-color-white {
+.jrny-section--white {
   --tw-bg-opacity: 1;
   background-color: rgba(255, 255, 255, var(--tw-bg-opacity));
 }
 
-.jrny-section--bg-color-light {
+.jrny-section--light {
   --tw-bg-opacity: 1;
   background-color: rgba(243, 244, 246, var(--tw-bg-opacity));
 }
 
-.jrny-section--bg-color-dark {
+.jrny-section--dark {
   --tw-bg-opacity: 1;
   background-color: rgba(22, 28, 45, var(--tw-bg-opacity));
 }
 
-.jrny-section--bg-color-white + .jrny-section--bg-color-white, .jrny-section--bg-color-light + .jrny-section--bg-color-light, .jrny-section--bg-color-dark + .jrny-section--bg-color-dark {
+.jrny-section--white + .jrny-section--white, .jrny-section--light + .jrny-section--light, .jrny-section--dark + .jrny-section--dark {
   padding-top: 0px !important;
 }
