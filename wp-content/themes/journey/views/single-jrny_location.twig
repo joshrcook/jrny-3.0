@@ -1,0 +1,42 @@
+{% extends 'layouts/default.twig' %}
+
+{% block main %}
+    {% if posts %}
+        {% for location in posts %}
+            <section>
+            {% if location.map %}
+                <div class="jrny-map h-96" data-zoom="{{ location.map.zoom }}">
+                    <div class="jrny-map__marker" data-icon-url="{{ options.custom_campus_location_marker.url }}" data-icon-size="64" data-lat="{{ location.map.lat }}" data-lng="{{ location.map.lng }}"></div>
+                </div>
+            {% endif %}
+            </section>
+            <section class="jrny-section jrny-section--md">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-8 offset-md-2">
+                            <h1 class="h1">Avon Campus</h1>
+                            <div class="mt-7">
+                                <a href="#" class="btn btn-primary">Plan your visit</a>
+                                <a href="#" class="btn btn-text text-primary ml-4">Get directions</a>
+                            </div>
+                            <div class="row mt-16">
+                                <div class="col">
+                                    <h6 class="h6 text-black text-opacity-70">Address</h6>
+                                    <p>{{ location.address | nl2br }}</p>
+                                </div>
+                                <div class="col">
+                                    <h6 class="h6 text-black text-opacity-70">Meeting Times</h6>
+                                    <p>{{ location.meeting_times | nl2br }}</p>
+                                </div>
+                            </div>
+                            <div class="mt-12">
+                                <h6 class="h6 text-black text-opacity-70">Details</h6>
+                                {{ function('wpautop', location.details) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        {% endfor %}
+    {% endif %}
+{% endblock %}

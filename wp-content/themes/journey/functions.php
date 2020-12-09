@@ -48,6 +48,7 @@ function jrny_site_setup() {
     add_image_size( 'featured-card-2x', 2220, 1000);
     add_image_size( 'card', 500, 500);
     add_image_size( 'card-2x', 1000, 1000);
+    add_image_size( 'map-icon', 100, 100);
 }
 
 add_action( 'after_setup_theme', 'jrny_site_setup' );
@@ -88,6 +89,12 @@ function add_theme_scripts_styles() {
 
     wp_enqueue_script('slick', '//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js', ['jquery'], null, true);
     wp_enqueue_script('index', get_template_directory_uri() . '/assets/js/index.js', ['jquery', 'slick'], null, true);
+
+    if (is_post_type_archive('jrny_location') || is_singular('jrny_location')) {
+        $gmaps_api_key = function_exists('get_field') ? get_field('google_maps_api_key', 'option') : 'YOUR_API_KEY';
+        wp_enqueue_script('google_maps', 'https://maps.googleapis.com/maps/api/js?key=' . $gmaps_api_key, [], null, true);
+        wp_enqueue_script('init_maps', get_template_directory_uri() . '/assets/js/init-maps.js', ['jquery', 'google_maps'], null, true);
+    }
 }
 
 add_action('wp_enqueue_scripts', 'add_theme_scripts_styles');

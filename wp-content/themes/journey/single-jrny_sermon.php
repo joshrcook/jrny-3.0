@@ -4,9 +4,6 @@ $context = Timber::get_context();
 
 // Get the other series sermons
 if (function_exists('get_field')) {
-    if ($context['posts'][0]) {
-        $context['posts'][0]->embed = get_field('video');
-    }
     $series_id = get_field('series', $context['posts'][0]->id);
 
     $context['series_sermons'] = Timber::get_posts([
