@@ -1,0 +1,13 @@
+{% if location.location_type == 'campus' %}
+    {% set iconUrl = options.custom_campus_location_marker_icon.url %}
+{% else %}
+    {% set iconUrl = options.custom_family_location_marker_icon.url %}
+{% endif %}
+<div class="jrny-map__marker" 
+    data-type="{{ location.location_type }}" 
+    {% if link %}data-link="{{ location.link }}" {% endif %}
+    data-icon-url="{{ iconUrl }}" 
+    data-icon-size="32" 
+    data-lat="{{ location.map.lat }}" 
+    data-lng="{{ location.map.lng }}"
+></div>

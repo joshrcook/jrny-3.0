@@ -1,0 +1,9 @@
+{% extends 'layouts/default.twig' %}
+
+{% block main %}
+    {% for post in posts %}
+    <div class="container text-center">
+        <h1 class="h1">{{ post.title }}</h1>
+    </div>
+    {% endfor %}
+{% endblock %}

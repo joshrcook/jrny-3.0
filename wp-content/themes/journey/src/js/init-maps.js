@@ -177,8 +177,6 @@ jQuery(document).ready(function($) {
     
         map = new google.maps.Map( $el[0], mapArgs);
     
-        console.log('map', map);
-    
         map.markers = [];
     
         $markers.each(function() {
@@ -196,6 +194,8 @@ jQuery(document).ready(function($) {
         var lng = $marker.data('lng');
         var iconUrl = $marker.data('icon-url');
         var iconSize = $marker.data('icon-size');
+        var markerType = $marker.data('type');
+        var markerLink = $marker.data('link');
         var latLng = {
             lat: parseFloat(lat),
             lng: parseFloat(lng),
@@ -206,11 +206,20 @@ jQuery(document).ready(function($) {
             map: map,
             icon: {
                 url: iconUrl,
-                size: iconSize ? new google.maps.Size(parseInt(iconSize), parseInt(iconSize)) : iconSize,
+                scaledSize: iconSize ? new google.maps.Size(parseInt(iconSize), parseInt(iconSize)) : iconSize,
             },
+            type: markerType,
         });
     
         map.markers.push(marker);
+
+        if (markerLink) {
+          console.log('markerLink', markerLink);
+          google.maps.event.addListener(marker, 'click', function() {
+            console.log('markerLink', markerLink);
+            window.location = markerLink;
+          });
+        }
     
         if ($marker.html()) {
     
@@ -239,9 +248,30 @@ jQuery(document).ready(function($) {
         } else {
             map.fitBounds( bounds);
         }
+
+        // Reset the zoom level to 14 if it's too close
+        var listener = google.maps.event.addListener(map, 'idle', function() {
+          console.log('nope');
+          console.log(map.getZoom());
+          if (map.getZoom() > 12) map.setZoom(12);
+          google.maps.event.removeListener(listener);
+        });
     }
 
     $('.jrny-map').each(function() {
-        initMap($(this));
+        var map = initMap($(this));
+
+        // Add click handlers for any marker switches in the same section
+        $(this).closest('.jrny-section').find('.jrny-marker-switch').each(function() {
+          var type = $(this).data('type');
+          $(this).change(function() {
+            var checked = this.checked;
+            for(var i = 0; i < map.markers.length; i++) {
+              if (map.markers[i].type === type) {
+                map.markers[i].setVisible(checked);
+              }
+            }
+          });
+        });
     });
 });
