@@ -1,0 +1,8 @@
+{% if term %}
+    <a href="{{ term.link }}">
+        <div class="bg-white py-6 px-7.5 border border-gray-200 rounded-lg">
+            <h5 class="h5">{{ term.name}}</h5>
+            <p class="mt-2">{{ term.count }} {{ function('_n', 'sermon', 'sermons', term.count) }}</p>
+        </div>
+    </a>
+{% endif %}

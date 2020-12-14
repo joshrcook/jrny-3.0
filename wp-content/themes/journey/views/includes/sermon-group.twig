@@ -1,5 +1,5 @@
 {% if sermons %}
-    <div class="jrny-sermon-group">
+    <div class="jrny-sermon-group is-loading" id="">
         <div class="flex justify-between items-center">
             <h3 class="h3">{{ title | default('Group Title') }}</h3>
             <div class="btn-group">
@@ -7,12 +7,29 @@
                 <button class="btn btn-light px-3 py-4 jrny-sermon-group__btn jrny-sermon-group__btn--next">⟶</button>
             </div>
         </div>
-        <div class="mt-7.5 jrny-sermon-group__sermons -mx-4">
-            {% for sermon in sermons %}
-                <div class="px-4">
-                    {% include 'includes/sermon-card.twig' with { sermon: sermon } %}
+        <div class="mt-7.5">
+            <div class="jrny-sermon-group__sermons -mx-4">
+                {% for sermon in sermons %}
+                    <div class="px-4">
+                        {% include 'includes/sermon-card.twig' with { sermon: sermon } %}
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="jrny-sermon-group__skeleton">
+                <div class="row">
+                    {% for i in 1..3 %}
+                        <div class="col  transition-colors">
+                            <div class="border border-gray-200 rounded-lg overflow-hidden">
+                                <div class="bg-gray-300 w-full" style="padding-bottom: 56.25%"></div>
+                                <div class="p-4">
+                                    <div class="bg-gray-300 h-5 w-2/3"></div>
+                                    <div class="bg-gray-300 h-4 mt-2 w-1/2"></div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
                 </div>
-            {% endfor %}
+            </div>
         </div>
     </div>
 {% endif %}

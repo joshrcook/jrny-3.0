@@ -1,5 +1,7 @@
 <?php 
 
+include 'inc/Jrny_Menu_Widget.php';
+
 /**
  * TODO:
  * - copy custom field code into functions.php
@@ -13,8 +15,16 @@ function get_nav_menu_items_by_location($location) {
     $theme_locations = get_nav_menu_locations();
     $menu_obj = get_term( $theme_locations[$location], 'nav_menu');
     return wp_get_nav_menu_items($menu_obj->ID);
-
 }
+
+
+
+// Register widgets
+function jrny_register_widgets() { 
+    register_widget( 'Jrny_Menu_Widget' ); 
+}
+
+add_action( 'widgets_init', 'jrny_register_widgets' );
 
 
 function jrny_timber_context( $context ) {
@@ -87,8 +97,8 @@ function add_theme_scripts_styles() {
     wp_enqueue_style('tailwind', get_template_directory_uri() . '/assets/css/tailwind.css');
     wp_enqueue_style('styles', get_template_directory_uri() . '/assets/css/styles.css'); 
 
-    wp_enqueue_script('slick', '//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js', ['jquery'], null, true);
-    wp_enqueue_script('index', get_template_directory_uri() . '/assets/js/index.js', ['jquery', 'slick'], null, true);
+    wp_enqueue_script('slick', '//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js', ['jquery'] );
+    wp_enqueue_script('index', get_template_directory_uri() . '/assets/js/index.js', ['jquery', 'slick'] );
 
     if (is_post_type_archive('jrny_location') || is_singular('jrny_location')) {
         $gmaps_api_key = function_exists('get_field') ? get_field('google_maps_api_key', 'option') : 'YOUR_API_KEY';
@@ -255,6 +265,21 @@ function arphabet_widgets_init() {
 	register_sidebar( array(
 		'name'          => 'Footer Menus',
 		'id'            => 'footer_menus',
+    ) );
+    
+    register_sidebar( array(
+		'name'          => 'Featured Cards',
+		'id'            => 'featured_cards',
+    ) );
+    
+    register_sidebar( array(
+		'name'          => 'Standard Cards',
+		'id'            => 'standard_cards',
+    ) );
+    
+    register_sidebar( array(
+		'name'          => 'Home Menus',
+		'id'            => 'home_menus',
 	) );
 
 }
@@ -278,6 +303,53 @@ function jrny_allowed_block_types( $allowed_block_types, $post ) {
 }
  
 add_filter( 'allowed_block_types', 'jrny_allowed_block_types', 10, 2 );
+
+
+/**
+ * Register cards custom post type
+ */
+function jrny_card_custom_post_type() {
+    register_post_type('jrny_card',
+        [
+            'labels'      => [
+                'name'                     => 'Cards',
+                'singular_name'            => 'Card',
+                'add_new'                  => 'Add New',
+                'add_new_item'             => 'Add New Card',
+                'edit_item'                => 'Edit Card',
+                'new_item'                 => 'New Card',
+                'view_item'                => 'View Card',
+                'view_items'               => 'View Cards',
+                'search_items'             => 'Search Cards',
+                'not_found'                => 'No cards found.',
+                'not_found_in_trash'       => 'No cards found in Trash.',
+                'parent_item_colon'        => 'Parent Card:',
+                'all_items'                => 'All Cards',
+                'archives'                 => 'Card Archives',
+                'attributes'               => 'Card Attributes',
+                'insert_into_item'         => 'Insert into card',
+                'uploaded_to_this_item'    => 'Uploaded to this card',
+                'featured_image'           => 'Featured image',
+                'set_featured_image'       => 'Set featured image',
+                'remove_featured_image'    => 'Remove featured image',
+                'use_featured_image'       => 'Use as featured image',
+                'filter_items_list'        => 'Filter cards list',
+                'items_list_navigation'    => 'Cards list navigation',
+                'items_list'               => 'Cards list',
+                'item_published'           => 'Card published.',
+                'item_published_privately' => 'Card published privately.',
+                'item_reverted_to_draft'   => 'Card reverted to draft.',
+                'item_scheduled'           => 'Card scheduled.',
+                'item_updated'             => 'Card updated.',
+            ],
+            'public'      => false,
+            'supports' => [ 'title', 'thumbnail' ],
+            'show_ui' => true,
+        ]
+    );
+}
+
+add_action('init', 'jrny_card_custom_post_type');
 
 
 /**
@@ -349,7 +421,7 @@ function jrny_register_taxonomy_speaker() {
         'show_ui'           => true,
         'show_admin_column' => true,
         'meta_box_cb'       => false,
-        'public'            => false,
+        'public'            => true,
     );
     register_taxonomy( 'jrny_speaker', [ 'jrny_sermon' ], $args );
 }
@@ -456,3 +528,213 @@ function jrny_location_custom_post_type() {
 }
 
 add_action('init', 'jrny_location_custom_post_type');
+
+
+
+
+
+/**
+ * Shortcodes
+ */
+function jrny_sermon_category_link_shortcode( $atts = [], $content = null, $tag = '' ) {
+    // override default attributes with user attributes
+    $atts = shortcode_atts(
+        array(
+            'slug' => '',
+        ), $atts, $tag
+    );
+
+    $term = get_term_by('slug', $atts['slug'], 'jrny_sermon_category');
+    $timber_term = Timber::get_term($term);
+
+    return Timber::compile('shortcodes/jrny_sermon_category_link.twig', ['term' => $timber_term]);
+}
+
+function jrny_category_sermon_group_shortcode( $atts = [], $content = null, $tag = '' ) {
+    // override default attributes with user attributes
+    $atts = shortcode_atts(
+        array(
+            'show' => 6,
+            'title' => 'Default Title',
+            'slug' => null,
+        ), $atts, $tag
+    );
+
+    if (!$atts['slug']) return '';
+
+    $posts = Timber::get_posts([
+        'post_type' => 'jrny_sermon',
+        'posts_per_page' => intval($atts['show']),
+        'meta_key' => 'date',
+        'orderby' => 'meta_value_num',
+        'tax_query' => [
+            [
+                'taxonomy' => 'jrny_sermon_category',
+                'field' => 'slug',
+                'terms' => $atts['slug'],
+            ]
+        ],
+    ]);
+
+    return Timber::compile('shortcodes/jrny_category_sermon_group.twig', ['sermons' => $posts, 'title' => $atts['title'] ]);
+}
+
+function jrny_latest_sermons_sermon_group_shortcode( $atts = [], $content = null, $tag = '' ) {
+    $atts = shortcode_atts(
+        array(
+            'show' => 6,
+            'title' => 'Default Title',
+        ), $atts, $tag
+    );
+
+    $context = Timber::get_context();
+
+    $posts = Timber::get_posts([
+        'post_type' => 'jrny_sermon',
+        'posts_per_page' => intval($atts['show']),
+        'meta_key' => 'date',
+        'orderby' => 'meta_value_num',
+    ]);
+
+    return Timber::compile('shortcodes/jrny_latest_sermons_sermon_group.twig', ['sermons' => $posts, 'title' => $atts['title']]);
+}
+
+function jrny_featured_card_group_shortcode( $atts = [], $context = null, $tag = '' ) {
+    $cards = Timber::get_posts([
+        'post_type' => 'jrny_card',
+        'meta_query' => [
+            [
+                'key' => 'type',
+                'value' => 'featured',
+            ]
+        ],
+        'meta_key' => 'order',
+        'orderby' => 'meta_value_num',
+    ]);
+
+    return Timber::compile('shortcodes/jrny_featured_card_group.twig', ['cards' => $cards ]);
+}
+
+function jrny_standard_card_group_shortcode( $atts = [], $context = null, $tag = '') {
+    $cards = Timber::get_posts([
+        'post_type' => 'jrny_card',
+        'meta_query' => [
+            [
+                'key' => 'type',
+                'value' => 'standard',
+            ]
+        ],
+        'meta_key' => 'order',
+        'orderby' => 'meta_value_num',
+    ]);
+
+    return Timber::compile('shortcodes/jrny_standard_card_group.twig', ['cards' => $cards ]);
+};
+
+function jrny_other_series_sermons_sermon_group( $atts = [], $context = null, $tag = '' ) {
+    $atts = shortcode_atts(
+        array(
+            'title' => 'Default Title',
+        ), $atts, $tag
+    );
+
+    $context = Timber::get_context();
+
+    if (count($context['posts']) > 0) {
+        $post = $context['posts'][0];
+        $term_id = $post->series;
+
+        if ($term_id) {
+            $sermons = Timber::get_posts([
+                'post_type' => 'jrny_sermon',
+                'posts_per_page' => -1,
+                'post__not_in' => [$post->id],
+                'meta_key' => 'date',
+                'orderby' => 'meta_value_num',
+                'tax_query' => [
+                    [
+                        'taxonomy' => 'jrny_series',
+                        'terms' => $post->series,
+                    ]
+                ]
+            ]);
+        }
+    }
+
+    return Timber::compile('shortcodes/jrny_other_series_sermons_sermon_group.twig', ['sermons' => $sermons, 'title' => $atts['title'] ]);
+
+}
+
+function jrny_all_locations_map_shortcode() {
+    $context = Timber::get_context();
+
+    return Timber::compile('shortcodes/jrny_all_locations_map.twig', $context);
+}
+
+function jrny_single_location_map_shortcode() {
+    $context = Timber::get_context();
+
+    return Timber::compile('shortcodes/jrny_single_location_map.twig', $context);
+}
+
+function jrny_homepage_menu_shortcode( $atts = [], $context = null, $tag = '' ) {
+    $atts = shortcode_atts(
+        array(
+            'menu' => '',
+        ), $atts, $tag
+    );
+
+    $menu = new \Timber\Menu( $atts['menu'] );
+
+    return Timber::compile('shortcodes/jrny_homepage_menu_shortcode.twig', ['menu' => $menu ]);
+}
+
+function year_shortcode() {
+    $year = date('Y');
+    return $year;
+}
+ 
+/**
+ * Central location to create all shortcodes.
+ */
+function jrny_shortcodes_init() {
+    add_shortcode( 'jrny_sermon_category_link', 'jrny_sermon_category_link_shortcode' );
+    add_shortcode( 'jrny_latest_sermons_sermon_group', 'jrny_latest_sermons_sermon_group_shortcode' );
+    add_shortcode( 'jrny_category_sermon_group', 'jrny_category_sermon_group_shortcode' );
+    add_shortcode( 'jrny_featured_card_group', 'jrny_featured_card_group_shortcode' );
+    add_shortcode( 'jrny_standard_card_group', 'jrny_standard_card_group_shortcode' );
+    add_shortcode( 'jrny_other_series_sermons_sermon_group', 'jrny_other_series_sermons_sermon_group' );
+    add_shortcode( 'jrny_all_locations_map', 'jrny_all_locations_map_shortcode' );
+    add_shortcode( 'jrny_single_location_map', 'jrny_single_location_map_shortcode' );
+    add_shortcode( 'jrny_homepage_menu', 'jrny_homepage_menu_shortcode' );
+    add_shortcode( 'year', 'year_shortcode' );
+}
+ 
+add_action( 'init', 'jrny_shortcodes_init' );
+
+
+/*
+ * Add columns to exhibition post list
+ */
+function add_jrny_card_columns( $columns ) {
+    array_splice( $columns, 2, 0, [ 
+        'background_image' => __( 'Background Image' ),
+      ] );
+    return $columns;
+  }
+  add_filter ( 'manage_jrny_card_posts_columns', 'add_jrny_card_columns' );
+
+/*
+* Add columns to exhibition post list
+*/
+function jrny_card_custom_columns ( $column, $post_id ) {
+    switch ( $column ) {
+        case 'background_image':
+            $image_id = get_field('background_image', $post_id);
+            if ($image_id) {
+                echo wp_get_attachment_image($image_id);
+            }
+        break;
+    }
+}
+add_action ( 'manage_jrny_card_posts_custom_column', 'jrny_card_custom_columns', 10, 2 );

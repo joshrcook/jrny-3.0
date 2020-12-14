@@ -1,0 +1,11 @@
+{% if posts %}
+    {% for location in posts %}
+        <div class="jrny-map h-96 bg-gray-200" data-zoom="{{ location.map.zoom }}">
+            <div class="jrny-map__marker" data-icon-url="{{ options.custom_campus_location_marker_icon.url }}" data-icon-size="64" data-lat="{{ location.map.lat }}" data-lng="{{ location.map.lng }}"></div>
+        </div>
+    {% else %}
+        <div class="h-96 bg-gray-200 flex items-center justify-center">
+            <div class="text-gray-400 italic">Loading map...</div>
+        </div>
+    {% endfor %}
+{% endif %}

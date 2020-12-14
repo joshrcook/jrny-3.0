@@ -1,6 +1,5 @@
-        <footer>
+<?php
 
-        </footer>
-        <?php wp_footer(); ?>
-    </body>
-</html>
+$context = Timber::get_context();
+
+Timber::render('includes/footer.twig', $context);

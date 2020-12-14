@@ -4,10 +4,6 @@
     @apply font-sans;
 }
 
-p {
-    @apply opacity-70;
-}
-
 .btn {
     @apply py-3;
     @apply px-6;
@@ -78,6 +74,103 @@ h6,
     @apply text-lg;
 }
 
+.custom-control-input:checked ~ .custom-control-label::before {
+    @apply border-primary;
+    @apply bg-primary;
+}
+
+.gform_wrapper form ul.gform_fields li.gfield {
+    @apply pr-0;
+}
+
+body .gform_wrapper form ul li.gfield {
+    @apply mt-0;
+}
+
+body .gform_wrapper form ul li.gfield + li.gfield {
+    @apply mt-4;
+}
+
+.gform_confirmation_wrapper {
+    @apply bg-white;
+    @apply py-2 px-4;
+    @apply rounded-lg;
+    @apply border border-solid border-gray-200;
+}
+
+.gform_wrapper form li.gfield.gfield_error, 
+.gform_wrapper form li.gfield.gfield_error.gfield_contains_required.gfield_creditcard_warning {
+    background-color: #c89797;
+}
+
+.gform_wrapper form div.validation_error {
+    background-color: #c89797;
+}
+
+.gform_wrapper form li.hidden_label input {
+    @apply mt-0;
+}
+
+.gform_wrapper form input:not([type=radio]):not([type=checkbox]):not([type=submit]):not([type=button]):not([type=image]):not([type=file]) {
+    @apply py-3;
+    @apply px-6;
+    @apply rounded-lg;
+}
+
+.gform_wrapper form .gform_footer {
+    @apply pb-0;
+    @apply mt-2;
+    @apply pt-2;
+}
+
+.gform_wrapper form .gform_button {
+    @apply py-3;
+    @apply bg-primary;
+    @apply text-white;
+    @apply rounded-lg;
+    @apply font-extrabold;
+}
+
+.gform_wrapper form .gform_footer input.button, 
+.gform_wrapper form .gform_footer input[type=image], 
+.gform_wrapper form .gform_footer input[type=submit] {
+    @apply block;
+    @apply w-full;
+}
+
+.jrny-homepage-menu {
+    li {
+        @apply border-t;
+        @apply border-white;
+        @apply border-opacity-30;
+
+        &:last-child {
+            @apply border-b;
+        }
+    }
+}
+
+.jrny-sermon-group {
+    .jrny-sermon-group__sermons {
+        @apply block;
+    }
+
+    .jrny-sermon-group__skeleton {
+        @apply hidden;
+    }
+}
+
+.jrny-sermon-group.is-loading {
+    
+    .jrny-sermon-group__sermons {
+        @apply hidden;
+    }
+
+    .jrny-sermon-group__skeleton {
+        @apply block;
+    }
+}
+
 .jrny-sermon-group + .jrny-sermon-group {
     @apply mt-20;
 }
@@ -92,7 +185,7 @@ h6,
     }
 
     .slick-track {
-        @apply ml-0;
+        @apply ml-0 !important;
     }
 }
 
@@ -107,7 +200,6 @@ h6,
     .widgettitle {
         @apply text-sm;
         @apply font-bold;
-        @apply opacity-70;
         @apply mb-6;
     }
 

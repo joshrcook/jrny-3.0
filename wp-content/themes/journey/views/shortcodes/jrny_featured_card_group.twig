@@ -1,0 +1,21 @@
+<div class="jrny-featured-card-group">
+    {% if cards %}
+        {% for card in cards %}
+            <div
+            class="bg-cover bg-center overflow-hidden rounded-xl flex items-end font-sans jrny-featured-card-group__card jrny-card jrny-card--featured" 
+            style="background-image: url({% if card.background_image %}{{ Image(card.background_image).src }}{% else %}https://via.placeholder.com/1110x500{% endif %}); height: 500px;">
+                <div class="w-full p-10 jrny-card__content-wrapper">
+                    <div class="row">
+                        <div class="col-md-6 text-white">
+                            <div class="h6">{{ card.subtitle | default('Featured') }}</div>
+                            <div class="h2 mt-2 mb-0">{{ card.title | default('Card Title') }}</div>
+                        </div>
+                        <div class="col-md-6 flex justify-end items-end">
+                            <a class="btn btn-light" href="{{ card.call_to_action.url }}" target="{{ card.call_to_action.target }}">{{ card.call_to_action.title | default('Call To Action') }}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+</div>

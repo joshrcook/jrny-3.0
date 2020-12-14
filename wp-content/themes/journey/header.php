@@ -1,5 +1,5 @@
-<?= get_template_part('template-parts/head'); ?>
+<?php
 
-    <header>
-        <?= get_template_part('template-parts/navbar'); ?>
-    </header>
+$context = Timber::get_context();
+
+Timber::render('includes/header.twig', $context);

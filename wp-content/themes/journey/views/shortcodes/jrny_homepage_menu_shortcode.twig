@@ -1,0 +1,11 @@
+{% if menu %}
+    <div class="jrny-homepage-menu">
+        <ul>
+            {% for item in menu.items %}
+                <li>
+                    <a href="{{ item.link }}" class="text-white hover:text-gray-300 transition ease-in-out duration-150 font-extrabold leading-6 py-3 block"><span>{{ item.title }}</span></a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}

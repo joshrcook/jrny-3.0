@@ -4,10 +4,6 @@
   font-family: Inter, sans-serif;
 }
 
-p {
-  opacity: 0.7;
-}
-
 .btn {
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
@@ -77,6 +73,112 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   line-height: 1.75rem;
 }
 
+.custom-control-input:checked ~ .custom-control-label::before {
+  --tw-border-opacity: 1;
+  border-color: rgba(246, 75, 75, var(--tw-border-opacity));
+  --tw-bg-opacity: 1;
+  background-color: rgba(246, 75, 75, var(--tw-bg-opacity));
+}
+
+.gform_wrapper form ul.gform_fields li.gfield {
+  padding-right: 0px;
+}
+
+body .gform_wrapper form ul li.gfield {
+  margin-top: 0px;
+}
+
+body .gform_wrapper form ul li.gfield + li.gfield {
+  margin-top: 1rem;
+}
+
+.gform_confirmation_wrapper {
+  --tw-bg-opacity: 1;
+  background-color: rgba(255, 255, 255, var(--tw-bg-opacity));
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  border-radius: 0.5rem;
+  --tw-border-opacity: 1;
+  border-color: rgba(229, 231, 235, var(--tw-border-opacity));
+  border-style: solid;
+  border-width: 1px;
+}
+
+.gform_wrapper form li.gfield.gfield_error, 
+.gform_wrapper form li.gfield.gfield_error.gfield_contains_required.gfield_creditcard_warning {
+  background-color: #c89797;
+}
+
+.gform_wrapper form div.validation_error {
+  background-color: #c89797;
+}
+
+.gform_wrapper form li.hidden_label input {
+  margin-top: 0px;
+}
+
+.gform_wrapper form input:not([type=radio]):not([type=checkbox]):not([type=submit]):not([type=button]):not([type=image]):not([type=file]) {
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  border-radius: 0.5rem;
+}
+
+.gform_wrapper form .gform_footer {
+  padding-bottom: 0px;
+  margin-top: 0.5rem;
+  padding-top: 0.5rem;
+}
+
+.gform_wrapper form .gform_button {
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  --tw-bg-opacity: 1;
+  background-color: rgba(246, 75, 75, var(--tw-bg-opacity));
+  --tw-text-opacity: 1;
+  color: rgba(255, 255, 255, var(--tw-text-opacity));
+  border-radius: 0.5rem;
+  font-weight: 800;
+}
+
+.gform_wrapper form .gform_footer input.button, .gform_wrapper form .gform_footer input[type=image], .gform_wrapper form .gform_footer input[type=submit] {
+  display: block !important;
+}
+
+.gform_wrapper form .gform_footer input.button, .gform_wrapper form .gform_footer input[type=image], .gform_wrapper form .gform_footer input[type=submit] {
+  width: 100% !important;
+}
+
+.jrny-homepage-menu li {
+    border-top-width: 1px;
+    --tw-border-opacity: 1;
+    border-color: rgba(255, 255, 255, var(--tw-border-opacity));
+    --tw-border-opacity: 0.3;
+  }
+
+.jrny-homepage-menu li:last-child {
+      border-bottom-width: 1px;
+    }
+
+.jrny-sermon-group .jrny-sermon-group__sermons {
+    display: block;
+  }
+
+.jrny-sermon-group .jrny-sermon-group__skeleton {
+    display: none;
+  }
+
+.jrny-sermon-group.is-loading .jrny-sermon-group__sermons {
+    display: none;
+  }
+
+.jrny-sermon-group.is-loading .jrny-sermon-group__skeleton {
+    display: block;
+  }
+
 .jrny-sermon-group + .jrny-sermon-group {
   margin-top: 5rem;
 }
@@ -94,7 +196,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     }
 
 .jrny-sermon-group .slick-track {
-    margin-left: 0px;
+    margin-left: 0px !important;
   }
 
 .jrny-footer-menus {
@@ -110,7 +212,6 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     font-size: 0.875rem;
     line-height: 1.25rem;
     font-weight: 700;
-    opacity: 0.7;
     margin-bottom: 1.5rem;
   }
 

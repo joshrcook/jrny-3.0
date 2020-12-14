@@ -1,0 +1,36 @@
+<section class="jrny-section overflow-hidden bg-gray-200">
+    <div class="relative">
+        <div class="jrny-map" style="height: 695px;">
+            {% for location in posts | filter(p => p.location_type == 'family') %}
+                {% include 'includes/map-marker.twig' with { location: location, link: true } %}
+            {% endfor %}
+            {% for location in posts | filter(p => p.location_type == 'campus') %}
+                {% include 'includes/map-marker.twig' with { location: location, link: true } %}
+            {% endfor %}
+        </div>
+        <div class="absolute top-10 left-10 py-6 px-8 bg-white rounded-lg shadow-xl">
+            <h4 class="h4">Locations</h4>
+            <p class="mt-1">Find a Journey family near you</p>
+            <div class="flex justify-between items-center mt-6">
+                <div class="flex items-center gap-4 mr-10">
+                    <img src="{{ options.custom_campus_location_marker_icon.url }}" class="h-8 w-8">
+                    <p>{{ options.campus_location_name | default('Journey Campus') }}</p>
+                </div>
+                <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input jrny-marker-switch" data-type="campus" id="customSwitch1" checked="checked">
+                    <label class="custom-control-label" for="customSwitch1"></label>
+                </div>
+            </div>
+            <div class="flex justify-between items-center mt-2">
+                <div class="flex items-center gap-4 mr-10">
+                    <img src="{{ options.custom_family_location_marker_icon.url }}" class="h-8 w-8">
+                    <p>{{ options.family_location_name | default('Journey Family') }}</p>
+                </div>
+                <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input jrny-marker-switch" data-type="family" id="customSwitch2" checked="checked">
+                    <label class="custom-control-label" for="customSwitch2"></label>
+                </div>
+            </div>
+        </div>
+    </div>    
+</section>

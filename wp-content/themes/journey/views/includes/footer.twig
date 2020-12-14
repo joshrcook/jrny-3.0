@@ -1,35 +1,42 @@
-<div class="bg-black text-white">
-    <div class="jrny-section jrny-section--lg text-center">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-6 mx-auto">
-                    <h2 class="h2">Welcome to the Journey Church Family</h2>
-                    <p class="text-lg">Enter your email below to receive inspiration every week.  As a thank you, we'll send you the "Living on Purpose" ebook for free!</p>
-                    <form>
-                        <input type="email" placeholder="Enter your email">
-                        <input type="submit" value="Subscribe" class="btn btn-primary btn-block">
-                        <p><small>We take your privacy seriously. No spam ever.</small></p>
-                    </form>
+         <footer>
+        {% block footer %}
+            <div class="bg-black text-white">
+                <div class="jrny-section jrny-section--lg text-center">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-6 mx-auto">
+                                <h2 class="h2">Welcome to the Journey Church Family</h2>
+                                <p class="text-lg">Enter your email below to receive inspiration every week.  As a thank you, we'll send you the "Living on Purpose" ebook for free!</p>
+                                <form>
+                                    <input type="email" placeholder="Enter your email">
+                                    <input type="submit" value="Subscribe" class="btn btn-primary btn-block">
+                                    <p><small>We take your privacy seriously. No spam ever.</small></p>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <hr class="border-t border-gray-500 border-opacity-70">
+                </div>
+                <div class="jrny-section jrny-section--lg">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-auto col-12">
+                                <img src="{{ options.logo_light.url }}" alt="{{ options.logo_light.alt }}" class="h-10 w-auto">
+                                <p class="text-sm mt-10">{{ options.address | nl2br }}</p>
+                            </div>
+                            <div class="col">
+                                <ul class="jrny-footer-menus flex flex-wrap mt-10 md:mt-0 md:justify-between md:ml-20">
+                                    {{ widgets.footer_menus }}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="container">
-        <hr class="border-t border-gray-500 border-opacity-70">
-    </div>
-    <div class="jrny-section jrny-section--lg">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-auto col-12">
-                    <img src="{{ options.logo_light.url }}" alt="{{ options.logo_light.alt }}" class="h-10 w-auto">
-                    <p class="text-sm mt-10">{{ options.address | nl2br }}</p>
-                </div>
-                <div class="col">
-                    <ul class="jrny-footer-menus flex flex-wrap mt-10 md:mt-0 md:justify-between md:ml-20">
-                        {{ widgets.footer_menus }}
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+        {% endblock %}
+        </footer>
+        {{ function('wp_footer') }}
+    </body>
+</html>
