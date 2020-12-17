@@ -115,6 +115,15 @@ body .gform_wrapper form ul li.gfield + li.gfield {
     @apply py-3;
     @apply px-6;
     @apply rounded-lg;
+    @apply border;
+    @apply border-gray-200;
+}
+
+.gform_wrapper .gfield .gfield_select {
+    @apply py-3 px-6;
+    @apply border;
+    @apply border-gray-200;
+    @apply rounded-lg;
 }
 
 .gform_wrapper form .gform_footer {
@@ -235,25 +244,16 @@ body .gform_wrapper form ul li.gfield + li.gfield {
 }
 
 .jrny-featured-card-group {
+    @apply -mt-7.5;
     &__card {
         @apply mt-7.5;
-
-        &:first-child {
-            @apply mt-0;
-        }
     }
 }
 
 .jrny-standard-card-group {
+    @apply -mt-7.5;
     &__card {
         @apply mt-7.5;
-
-        @screen md {
-            &:nth-child(1),
-            &:nth-child(2) {
-                @apply mt-0;
-            }
-        }
     }
 }
 
@@ -325,4 +325,17 @@ body .gform_wrapper form ul li.gfield + li.gfield {
 .jrny-section--light + .jrny-section--light,
 .jrny-section--dark + .jrny-section--dark {
     @apply pt-0;
+}
+
+body.personalize-new .jrny-personalize:not(.jrny-personalize--new),
+body.personalize-campus .jrny-personalize:not(.jrny-personalize--campus),
+body.personalize-online .jrny-personalize:not(.jrny-personalize--online) {
+    display: none !important;
+}
+
+.menu-item-button {
+    background-color: rgba(246, 75, 75, 1) !important;
+    color: white !important;
+    padding: 12px 24px !important;
+    border-radius: 10px !important;
 }

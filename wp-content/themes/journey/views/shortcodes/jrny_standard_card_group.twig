@@ -2,7 +2,7 @@
     {% if cards %}
         <div class="row">
         {% for card in cards %}
-            <div class="col-md-6 jrny-standard-card-group__card">
+            <div class="col-md-6 jrny-standard-card-group__card{% if card.visibility_filters %} jrny-personalize{% for filter in card.visibility_filters %} jrny-personalize--{{ filter }}{% endfor %}{% endif %}">
                 <div
                     class="bg-cover bg-center overflow-hidden rounded-xl flex items-end font-sans jrny-card jrny-card--standard" 
                     style="background-image: url({% if card.background_image %}{{ Image(card.background_image).src }}{% else %}https://via.placeholder.com/500x500{% endif %});">

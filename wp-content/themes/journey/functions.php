@@ -97,17 +97,40 @@ function add_theme_scripts_styles() {
     wp_enqueue_style('tailwind', get_template_directory_uri() . '/assets/css/tailwind.css');
     wp_enqueue_style('styles', get_template_directory_uri() . '/assets/css/styles.css'); 
 
+    wp_enqueue_script('js-cookie', '//cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js');
     wp_enqueue_script('slick', '//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js', ['jquery'] );
-    wp_enqueue_script('index', get_template_directory_uri() . '/assets/js/index.js', ['jquery', 'slick'] );
+    wp_enqueue_script('index', get_template_directory_uri() . '/assets/js/index.js', ['jquery', 'slick', 'js-cookie'] );
 
     if (is_post_type_archive('jrny_location') || is_singular('jrny_location')) {
         $gmaps_api_key = function_exists('get_field') ? get_field('google_maps_api_key', 'option') : 'YOUR_API_KEY';
         wp_enqueue_script('google_maps', 'https://maps.googleapis.com/maps/api/js?key=' . $gmaps_api_key, [], null, true);
         wp_enqueue_script('init_maps', get_template_directory_uri() . '/assets/js/init-maps.js', ['jquery', 'google_maps'], null, true);
     }
+
+	wp_localize_script( 'index', 'ajaxUrl', admin_url( 'admin-ajax.php' ));
 }
 
 add_action('wp_enqueue_scripts', 'add_theme_scripts_styles');
+
+function jrny_enable_live_banner_support() {
+    $banner_times = get_field('live_banner_times', 'option');
+    $active_banner_times = array_filter($banner_times, function($time) {
+        $start_time_array = explode(':', $time['start_time']);
+        $end_time_array = explode(':', $time['end_time']);
+        $start_time = mktime($start_time_array[0], $start_time_array[1], $start_time_array[2]);
+        $end_time = mktime($end_time_array[0], $end_time_array[1], $end_time_array[2]);
+        return date('l', current_time('timestamp')) == $time['day_of_the_week'] && current_time('timestamp') >= $start_time && current_time('timestamp') < $end_time;
+    });
+    if (count($active_banner_times) === 0) {
+        echo '<style>
+        .brz:not(.brz-ed) .brz-section[banner="live"] {
+            display: none !important;
+        }
+        </style>';
+    }
+}
+
+add_action('wp_head', 'jrny_enable_live_banner_support', 9999);
 
 
 function jrny_register_nav_menus() {
@@ -600,6 +623,10 @@ function jrny_latest_sermons_sermon_group_shortcode( $atts = [], $content = null
 }
 
 function jrny_featured_card_group_shortcode( $atts = [], $context = null, $tag = '' ) {
+    if (array_key_exists('personalize', $_COOKIE)) {
+        $personalize = $_COOKIE['personalize'];
+    }
+
     $cards = Timber::get_posts([
         'post_type' => 'jrny_card',
         'meta_query' => [
@@ -612,21 +639,36 @@ function jrny_featured_card_group_shortcode( $atts = [], $context = null, $tag =
         'orderby' => 'meta_value_num',
     ]);
 
+    if (isset($personalize)) {
+        $cards = array_filter($cards, function($card) use ($personalize) {
+            return in_array($personalize, $card->visibility_filters);
+        });
+    }
+
     return Timber::compile('shortcodes/jrny_featured_card_group.twig', ['cards' => $cards ]);
 }
 
 function jrny_standard_card_group_shortcode( $atts = [], $context = null, $tag = '') {
+    if (array_key_exists('personalize', $_COOKIE)) {
+        $personalize = $_COOKIE['personalize'];
+    }
     $cards = Timber::get_posts([
         'post_type' => 'jrny_card',
         'meta_query' => [
             [
                 'key' => 'type',
                 'value' => 'standard',
-            ]
+            ],
         ],
         'meta_key' => 'order',
         'orderby' => 'meta_value_num',
     ]);
+
+    if (isset($personalize)) {
+        $cards = array_filter($cards, function($card) use ($personalize) {
+            return in_array($personalize, $card->visibility_filters);
+        });
+    }
 
     return Timber::compile('shortcodes/jrny_standard_card_group.twig', ['cards' => $cards ]);
 };
@@ -737,4 +779,46 @@ function jrny_card_custom_columns ( $column, $post_id ) {
         break;
     }
 }
+
 add_action ( 'manage_jrny_card_posts_custom_column', 'jrny_card_custom_columns', 10, 2 );
+
+// Remove gravity forms nag
+function remove_gravity_forms_nag() {
+    update_option( 'rg_gforms_message', '' );
+    remove_action( 'after_plugin_row_gravityforms/gravityforms.php', array( 'GFForms', 'plugin_row' ) );
+}
+add_action( 'admin_init', 'remove_gravity_forms_nag' );
+
+
+function ajax_save_personalize_value($data) {
+    $personalize = $_POST['personalize'];
+
+    $allowed_values = ['new', 'online', 'campus'];
+
+    // Make sure the value is one of the accepted ones
+    if (!in_array($personalize, $allowed_values, true)) {
+        wp_send_json_error();
+        wp_die();
+    }
+
+    setcookie('personalize', $personalize, time() * 60 * 60 * 24 * 365); // Expires in 365 days
+
+    echo 'personalization cookie successfully set: ' . $personalize;
+
+	wp_die(); // this is required to terminate immediately and return a proper response
+}
+
+add_action('wp_ajax_save_personalize_value', 'ajax_save_personalize_value');
+add_action('wp_ajax_nopriv_save_personalize_value', 'ajax_save_personalize_value');
+
+function jrny_personalize_body_class($classes) {
+    if (array_key_exists('personalize', $_COOKIE)) {
+        $personalize = $_COOKIE['personalize'];
+    }
+    if (isset($personalize)) {
+        return array_merge( $classes, [ 'personalize-' . $personalize ]);
+    }
+    return $classes;
+}
+
+add_filter('body_class', 'jrny_personalize_body_class');

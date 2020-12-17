@@ -2,7 +2,7 @@
     {% if cards %}
         {% for card in cards %}
             <div
-            class="bg-cover bg-center overflow-hidden rounded-xl flex items-end font-sans jrny-featured-card-group__card jrny-card jrny-card--featured" 
+            class="bg-cover bg-center overflow-hidden rounded-xl flex items-end font-sans jrny-featured-card-group__card jrny-card jrny-card--featured{% if card.visibility_filters %} jrny-personalize{% for filter in card.visibility_filters %} jrny-personalize--{{ filter }}{% endfor %}{% endif %}" 
             style="background-image: url({% if card.background_image %}{{ Image(card.background_image).src }}{% else %}https://via.placeholder.com/1110x500{% endif %}); height: 500px;">
                 <div class="w-full p-10 jrny-card__content-wrapper">
                     <div class="row">
